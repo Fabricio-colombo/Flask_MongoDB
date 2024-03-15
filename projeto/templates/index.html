@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Meu Projeto Flask</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <form class="login-form">
+            <h2>Login</h2>
+            <div class="form-field">
+                <label for="username">Usuário</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-field">
+                <label for="password">Senha</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-field">
+                <button type="submit">Acessar</button>
+            </div>
+            <div class="links">
+                <a href="/register">Crie sua conta</a>
+                <a href="/forgot-password">Esqueceu sua senha?</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
