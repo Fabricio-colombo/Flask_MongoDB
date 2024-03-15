@@ -1,6 +1,13 @@
 from flask import Flask, render_template
+from connect_mongo import connect_mongo
 
 app = Flask(__name__)
+
+collection = connect_mongo()
+if collection is not None:
+    print("Conexão bem-sucedida!")
+else:
+    print("Falha ao conectar")
 
 @app.route('/')
 def index():
