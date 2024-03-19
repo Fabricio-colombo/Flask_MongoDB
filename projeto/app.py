@@ -15,9 +15,15 @@ collection = db[collection_name_config]
 
 @app.route('/')
 def index():
-    if 'username' in session:
-        return render_template('index.html', username=session['username'])
-    return render_template('login.html')  # Redireciona para a página de login
+    login = request.args.get('username', '')
+    senha = request.args.get('password', '')
+    user_data = collection.find_one({'username': login, 'password': senha})
+    if user_data:
+        print('Login bem sucedido')
+        return redirect(url_for('login'))
+    return render_template('index.html')
+
+    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
