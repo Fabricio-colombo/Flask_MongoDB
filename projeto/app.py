@@ -3,15 +3,12 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# Configurações do MongoDB
 URI_config = "mongodb://localhost:27017"
 nome_config = "Site_Flask"
 collection_name_config = "BD_LOGIN"
 
-# Chave secreta para a sessão (você pode gerar uma chave mais segura)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-# Conexão ao MongoDB
 client = MongoClient(URI_config)
 db = client[nome_config]
 collection = db[collection_name_config]
@@ -20,23 +17,22 @@ collection = db[collection_name_config]
 def index():
     if 'username' in session:
         return render_template('index.html', username=session['username'])
-    return render_template('index.html')
+    return render_template('login.html')  # Redireciona para a página de login
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-    elif request.method == 'GET':
-        username = request.args.get('username')
-        password = request.args.get('password')
-
-    user_data = collection.find_one({'username': username, 'password': password})
-    if user_data:
-        session['username'] = username  # Definir a variável de sessão
-        return redirect(url_for('index'))
-    else:
-        return render_template('login.html', error='Credenciais inválidas. Tente novamente.')
+        
+        user_data = collection.find_one({'username': username, 'password': password})
+        if user_data:
+            session['username'] = username
+            return redirect(url_for('index'))  # Redireciona para a página inicial após o login
+        else:
+            return render_template('login.html', error='Credenciais inválidas. Tente novamente.')
+    
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -53,7 +49,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)  # Remover a variável de sessão
+    session.pop('username', None)
     return redirect(url_for('index'))
 
 @app.route('/forgot-password')
