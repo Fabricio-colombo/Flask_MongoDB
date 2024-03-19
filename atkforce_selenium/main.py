@@ -9,8 +9,9 @@ import time
 def ataque_forca_bruta(url_base, username, tamanho_max_senha):
     driver = webdriver.Chrome()
     driver.get(url_base)
-    #caracteres_possiveis = string.ascii_letters + string.digits + string.punctuation
-    caracteres_possiveis = 'abc123'
+    
+    caracteres_possiveis = string.ascii_letters + string.digits + string.punctuation
+    #caracteres_possiveis = 'abc123'
 
     tentativas = 0
 
