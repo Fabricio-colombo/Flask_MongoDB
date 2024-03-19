@@ -9,7 +9,8 @@ import time
 def ataque_forca_bruta(url_base, username, tamanho_max_senha):
     driver = webdriver.Chrome()
     driver.get(url_base)
-    caracteres_possiveis = string.ascii_letters + string.digits + string.punctuation
+    #caracteres_possiveis = string.ascii_letters + string.digits + string.punctuation
+    caracteres_possiveis = 'abc123'
 
     tentativas = 0
 
@@ -21,6 +22,7 @@ def ataque_forca_bruta(url_base, username, tamanho_max_senha):
             time.sleep(0.1)
             if '/login' in driver.current_url:
                 print(f'Senha encontrada: {senha_tentativa} em {tentativas} tentativas')
+                time.sleep(5)
                 driver.quit()
                 return senha_tentativa, tentativas
 
