@@ -11,10 +11,12 @@ else:
 
 @app.route('/')
 def index():
+    # http://127.0.0.1:5000/
     return render_template('index.html')
 
 @app.route('/login')
 def login():
+    # http://127.0.0.1:5000/login
     return render_template('login.html')
 
 @app.route('/register')
